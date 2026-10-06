@@ -118,6 +118,12 @@ def hill_climbing(
         yield current #yielding each state
         next_states = problem.next_states(current)
         # TODO:
+        if next_states is None:
+            return "solution not found"
+        elif (next_states - parent) is None:
+            
+            
+        
         # if with three branches
         # Hint: pseudocode from lecture 3 (local search), slide 5
         #       return None if no solution can be found
@@ -156,11 +162,22 @@ def tabu_search(
 
 
 def misplaced(state: State) -> int:
-    return 0 # TODO
+# how many items are misplaced 
+    n = 0
+    for i in range(len(goal)):
+        if state[i] != goal[i]:
+            n += 1 
+    
+    return n 
+    
+    
+    # TODO
     # Hint: description on lecture 3 (local search) slide 22
 
 
 def manhattan(state: State) -> int:
+    
+    
     return 0 # TODO
     # Hint: description on lecture 3 (local search) slide 22
 
