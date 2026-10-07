@@ -123,6 +123,7 @@ def hill_climbing(
         elif (next_states - parent) is None:
             
             
+            
         
         # if with three branches
         # Hint: pseudocode from lecture 3 (local search), slide 5
