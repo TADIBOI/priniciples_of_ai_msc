@@ -112,15 +112,20 @@ def hill_climbing(
     f : HeuristicFunction
       The heuristic function that evaluates states. Its input is a state.
     """
-    current = problem.start_state()
-    parent = problem.nil
-    while not problem.is_goal_state(current):
-        yield current #yielding each state
-        next_states = problem.next_states(current)
-        # TODO:
-        if next_states is None:
-            return "solution not found"
-        elif (next_states - parent) is None:
+    current_state = problem.start_state()
+    parent_state = problem.nil
+    while not problem.is_goal_state(current_state):
+        yield current_state #yielding each state
+        next_states = problem.next_states(current_state)
+        
+            # TODO:
+        if next_states == set():
+            return None
+        elif (next_states - {parent_state}) == set():
+            current_state = parent_state
+        else: 
+            current_state = min(next_states-{parent_state}, key=f)
+    
             
             
             
@@ -128,7 +133,7 @@ def hill_climbing(
         # if with three branches
         # Hint: pseudocode from lecture 3 (local search), slide 5
         #       return None if no solution can be found
-    yield current
+    yield current_state
 
 
 def tabu_search(
@@ -166,7 +171,7 @@ def misplaced(state: State) -> int:
 # how many items are misplaced 
     n = 0
     for i in range(len(goal)):
-        if state[i] != goal[i]:
+        if state[i] != goal[i] and state[i] != 0:
             n += 1 
     
     return n 
