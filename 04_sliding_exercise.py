@@ -156,13 +156,38 @@ def tabu_search(
     long_time : int
       If the optimum has not changed in 'long_time' steps, the algorithm stops.
     """
-    pass
     #TODO 
     # Hint: pseudocode from lecture 3 (local search), slide 11
     #       return None if no solution is found
     #       don't forget to yield each state
     #       don't forget about set operations (such as subtraction)
-    
+    start_state = problem.start_state()
+    current_state = start_state
+    opt = start_state
+    tabu  = []
+
+    counter = 0
+    while not (problem.is_goal_state(opt) or counter >= long_time):
+
+        yield current_state
+        next_states = problem.next_states(current_state)
+        if next_states == set():
+            return None
+        elif next_states - set(tabu) == set():
+            current_state = min(next_states ,key=f)
+            counter += 1
+        else:
+            current_state = min(next_states - set(tabu),key=f)
+            counter += 1
+        tabu.append(current_state)
+        if len(tabu) > tabu_len:
+            tabu.pop(0)
+        
+        if f(current_state) < f(opt):
+            opt = current_state
+            counter = 0
+    if problem.is_goal_state(opt):
+        yield opt
     
     
     
