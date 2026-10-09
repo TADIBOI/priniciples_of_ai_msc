@@ -118,7 +118,7 @@ def hill_climbing(
         yield current_state #yielding each state
         next_states = problem.next_states(current_state)
         
-            # TODO:
+        #TODO:
         if next_states == set():
             return None
         elif (next_states - {parent_state}) == set():
@@ -157,12 +157,15 @@ def tabu_search(
       If the optimum has not changed in 'long_time' steps, the algorithm stops.
     """
     pass
-    # TODO 
+    #TODO 
     # Hint: pseudocode from lecture 3 (local search), slide 11
     #       return None if no solution is found
     #       don't forget to yield each state
     #       don't forget about set operations (such as subtraction)
-
+    
+    
+    
+    
 
 # heuristics
 
@@ -182,9 +185,16 @@ def misplaced(state: State) -> int:
 
 
 def manhattan(state: State) -> int:
+    sum_manhattan = 0
+    for i, field in enumerate(state):
+        if state[i] != 0:    
+            pos_state = [i// 3][i %3]
+            pos_goal = [goal.index(field) // 3][goal.index(field)% 3]
+            sum_manhattan += abs(pos_state[0] - pos_goal[0]) + abs(pos_state[1] - pos_goal[1])
+         
     
-    
-    return 0 # TODO
+    return sum_manhattan 
+            # TODO
     # Hint: description on lecture 3 (local search) slide 22
 
 # END OF YOUR CODE
