@@ -256,7 +256,9 @@ class EvaluationFunctionDFS(EvaluationFunction):
 
 class EvaluationFunctionBFS(EvaluationFunction):
     def __call__(self, node):
-        pass # TODO
+        # TODO
+        return self.g[node]
+        
 
 
 class EvaluationFunctionLF(EvaluationFunction):
@@ -266,6 +268,8 @@ class EvaluationFunctionLF(EvaluationFunction):
 
     def __call__(self, node):
         pass # TODO
+        return self.h(node)
+        
 
 
 class EvaluationFunctionAStar(EvaluationFunction):
@@ -373,7 +377,11 @@ class EatDonutsProblem(SearchProblem):
 # END OF YOUR CODE
 
 LABYRINTH_DIR = "labyrinths"
+
+
 #labyrinth_fns = sorted(os.listdir(LABYRINTH_DIR))
+
+# i had a problem with opening the labyrith files(idk if its the problem, but i use MAC os)
 labyrinth_fns = sorted(
     name for name in os.listdir(LABYRINTH_DIR)
     if name.endswith(".txt")
