@@ -193,19 +193,22 @@ def graph_search(problem, f) -> tuple[list[Actions], list[State]]:
             if not OPEN:
                 # return the goal node, the dict of parents and expanded nodes
                 return None, pi, expanded_nodes
-             # TODO
+            # TODO
             n = min(OPEN, key=f)
             if problem.is_goal_state(n):
-                return n, pi
-            OPEN = OPEN - set(n)
-            for m in next_states(n) - pi(n):
+                return n, pi, expanded_nodes
+            expanded_nodes.append(n)
+
+            OPEN = OPEN - {n}
+            
+            for m in problem.next_states(n) - {pi[n]}:
                 #8. if mG or g(n)+c(n,m)<g(m) then
-                if m in G or g(n) + c(n,m) < g(m):
-                    pi(m) = n
-                    g(n) = g(n) + c(n,m)
-                    OPEN = OPEN + set(m)
+                if m not in G or (g[n] + 1) < g[m]:
+                    pi[m] = n
+                    g[m] = g[n] + 1
+                    OPEN.add(m)
                     
-                
+            G.update(OPEN)
 
             
             # Hint: Pseudocode from lecture 5 (graphsearch) on slide 10
@@ -253,7 +256,9 @@ class EvaluationFunctionDFS(EvaluationFunction):
 
 class EvaluationFunctionBFS(EvaluationFunction):
     def __call__(self, node):
-        pass # TODO
+        # TODO
+        return self.g[node]
+        
 
 
 class EvaluationFunctionLF(EvaluationFunction):
@@ -263,6 +268,8 @@ class EvaluationFunctionLF(EvaluationFunction):
 
     def __call__(self, node):
         pass # TODO
+        return self.h(node)
+        
 
 
 class EvaluationFunctionAStar(EvaluationFunction):
@@ -370,7 +377,17 @@ class EatDonutsProblem(SearchProblem):
 # END OF YOUR CODE
 
 LABYRINTH_DIR = "labyrinths"
-labyrinth_fns = sorted(os.listdir(LABYRINTH_DIR))
+
+
+#labyrinth_fns = sorted(os.listdir(LABYRINTH_DIR))
+
+# i had a problem with opening the labyrith files(idk if its the problem, but i use MAC os)
+labyrinth_fns = sorted(
+    name for name in os.listdir(LABYRINTH_DIR)
+    if name.endswith(".txt")
+    and os.path.isfile(os.path.join(LABYRINTH_DIR, name))
+)
+
 labyrinth_paths = [
     os.path.join(LABYRINTH_DIR, labyrinth_fn) for labyrinth_fn in labyrinth_fns
 ]

@@ -21,6 +21,7 @@ spacy = ">=3.8.7,<4"
 pip = ">=25.2,<26"
 python = ">=3.12.11,<3.13"
 cowpy = ">=1.1.5,<2"
+python-lsp-server = ">=1.15.0,<2"
 
 [pypi-dependencies]
 freesimplegui = ">=5.2.0.post1, <6"
