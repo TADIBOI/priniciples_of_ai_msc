@@ -134,6 +134,15 @@ def minimax(board: GomokuBoard) -> None:
 
     def minimize(board: GomokuBoard, player: int) -> MiniMaxReturnType:
         pass # TODO
+        board_state = board
+        path = []
+        #check if there are evaluation states left
+        match board.winner:
+            case 0:
+                return 0, board
+
+
+        
         # Hint: Check MiniMaxReturnType as a hint for what to return!
         #       Is the game over? Do we have a winner? Is it a draw?
         #       If it is over, the minimax value should be a positive or 
